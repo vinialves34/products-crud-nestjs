@@ -4,7 +4,7 @@ import { Product } from 'src/entities/product.entity';
 
 @Injectable()
 export class ProductRepository {
-  private inMemory: Product[] = [];
+  private inMemory: Product[];
 
   constructor(private database: ProductsDatabase) {
     this.inMemory = this.database.products;
