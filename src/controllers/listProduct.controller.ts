@@ -1,4 +1,5 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { Product } from 'src/entities/product.entity';
 import { ListProductsService } from 'src/services/listProducts.service';
 
@@ -9,13 +10,14 @@ export class ListProductController {
   constructor(private readonly service: ListProductsService) {}
 
   @Get()
-  async handle(): Promise<Product[]> {
+  async handle(@Res() res: Response): Promise<Response> {
     try {
       const products = await this.service.execute();
 
-      return products;
+      return res.json(products).send();
     } catch (error) {
       this.logger.error(`Unable to list products. \nReason: ${error}`);
+      res.sendStatus(500);
     }
   }
 }
