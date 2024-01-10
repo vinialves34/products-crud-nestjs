@@ -14,6 +14,9 @@ export class Product {
   constructor() {
     if (!this.uuid) {
       this.uuid = uuidV4();
+      this.created_at = new Date().toISOString();
     }
+
+    this.updated_at = new Date().toISOString();
   }
 }

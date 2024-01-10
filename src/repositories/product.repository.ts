@@ -15,4 +15,12 @@ export class ProductRepository {
       resolve(this.inMemory);
     });
   }
+
+  async save(product: Product): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.inMemory.push(product);
+
+      resolve();
+    });
+  }
 }
