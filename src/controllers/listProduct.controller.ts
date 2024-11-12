@@ -16,7 +16,7 @@ export class ListProductController {
 
       return res.json(products).send();
     } catch (error) {
-      this.logger.error(`Unable to list products. \nReason: ${error}`);
+      this.logger.error(`Unable to list products. \nReason: ${error.message}`);
       res.sendStatus(500);
     }
   }

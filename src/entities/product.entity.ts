@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 
 export class Product {
-  private uuid: string;
+  public readonly uuid: string;
 
   public name: string;
 

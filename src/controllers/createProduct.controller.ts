@@ -1,25 +1,27 @@
-import { Body, Controller, Logger, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
 import { CreateProductService } from '../services/createProduct.service';
 import { Request, Response } from 'express';
-import { ProductDTO } from 'src/dto/product.dto';
+import { CreateProductDTO } from 'src/dto/createProduct.dto';
 
 @Controller('product')
 export class CreateProductController {
   private readonly logger = new Logger(CreateProductController.name);
 
-  constructor(private readonly createProductService: CreateProductService) {}
+  constructor(private readonly service: CreateProductService) {}
 
   @Post()
   async handle(
-    @Body() productDto: ProductDTO,
+    @Body() productDto: CreateProductDTO,
     @Res() res: Response,
   ): Promise<void> {
     try {
-      await this.createProductService.execute(productDto);
+      await this.service.execute(productDto);
 
       res.sendStatus(201);
     } catch (error) {
-      this.logger.error(`Unable to register product. \nReason: ${error}`);
+      this.logger.error(
+        `Unable to register product. \nReason: ${error.message}`,
+      );
       res.sendStatus(500);
     }
   }
